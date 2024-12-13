@@ -5,8 +5,8 @@ public class LaporanBulanan extends LaporanPenjualan {
     private String bulan;
     private int tahun;
 
-    public LaporanBulanan(int idLaporan, String tanggal, double totalPenjualan, String bulan, int tahun) {
-        super(idLaporan, tanggal, totalPenjualan);
+    public LaporanBulanan(int idLaporan, String tanggal, double totalPenjualan, Pembayaran pembayaran, String bulan, int tahun) {
+        super(idLaporan, tanggal, totalPenjualan, pembayaran);
         this.bulan = bulan;
         this.tahun = tahun;
     }

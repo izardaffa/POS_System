@@ -4,8 +4,8 @@ public class LaporanHarian extends LaporanPenjualan {
     // Atribut
     private int totalTransaksi;
 
-    public LaporanHarian(int idLaporan, String tanggal, double totalPenjualan, int totalTransaksi) {
-        super(idLaporan, tanggal, totalPenjualan);
+    public LaporanHarian(int idLaporan, String tanggal, double totalPenjualan, Pembayaran pembayaran, int totalTransaksi) {
+        super(idLaporan, tanggal, totalPenjualan, pembayaran);
         this.totalTransaksi = totalTransaksi;
     }
 
