@@ -11,6 +11,7 @@ public class LaporanHarian extends LaporanPenjualan {
 
     @Override
     public void cetakLaporan() {
-        System.out.println("Laporan Harian");
+        super.cetakLaporan();
+        System.out.println("Total Transaksi: " + totalTransaksi);
     }
 }

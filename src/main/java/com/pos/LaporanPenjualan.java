@@ -14,6 +14,8 @@ public class LaporanPenjualan {
     }
 
     public void cetakLaporan() {
-        System.out.println("Laporan Penjualan");
+        System.out.println("ID Laporan: " + idLaporan);
+        System.out.println("Tanggal: " + tanggal);
+        System.out.println("Total Penjualan: " + totalPenjualan);
     }
 }

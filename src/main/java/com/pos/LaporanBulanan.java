@@ -13,6 +13,8 @@ public class LaporanBulanan extends LaporanPenjualan {
 
     @Override
     public void cetakLaporan() {
-        System.out.println("Laporan Bulanan");
+        super.cetakLaporan();
+        System.out.println("Bulan: " + bulan);
+        System.out.println("Tahun: " + tahun);
     }
 }

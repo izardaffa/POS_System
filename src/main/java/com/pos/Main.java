@@ -6,14 +6,15 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        
         List<Produk> daftarProduk = new ArrayList<>();
-
+        
         // Tambahkan produk contoh
         daftarProduk.add(new ProdukEceran(1, "Sabun", 5000, "Pcs", 100));
         daftarProduk.add(new ProdukKemasan(2, "Minyak Goreng", 20000, "Bimoli", 100));
 
         List<Produk> keranjangBelanja = new ArrayList<>();
-        boolean belanjaLagi = true;
+        boolean belanjaLagi = true; 
 
         System.out.println("\n=== Daftar Produk ===");
         for (Produk produk : daftarProduk) {
@@ -38,7 +39,37 @@ public class Main {
 
         double totalPembayaran = keranjangBelanja.stream().mapToDouble(Produk::getHarga).sum();
         System.out.println("\nTotal pembayaran: " + totalPembayaran);
+        
+        System.out.println("\n");
+        //Nama pengguna
+        List<User> userList = new ArrayList<>();  
+        userList.add(new Admin("admin", "admin123", "SuperAdmin"));  
+        userList.add(new Pegawai("pegawai", "orangrajin", "Kasir"));  
 
+        //Login
+        System.out.println("=== Login ===");  
+        System.out.print("Masukkan username: ");  
+        String username = scanner.next();  
+        System.out.print("Masukkan password: ");  
+        String password = scanner.next();  
+
+        User currentUser = null;  
+        for (User user : userList) {  
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {  
+                currentUser = user;  
+                break;  
+            }  
+        }  
+
+        if (currentUser != null) {  
+            System.out.println("Login berhasil! Selamat datang, " + currentUser.getUsername() + ".");
+            System.out.println("");
+            currentUser.displayInfo();   
+        } else {  
+            System.out.println("Login gagal! Username atau password salah.");  
+            return;   
+        } 
+        
         System.out.println("\nPilih metode pembayaran:");
         System.out.println("1. Cash");
         System.out.println("2. QRIS");
@@ -60,5 +91,6 @@ public class Main {
             default:
                 System.out.println("Pilihan tidak valid.");
         }
+        
     }
 }
