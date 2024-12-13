@@ -1,3 +1,5 @@
+package com.pos;
+
 public class Produk {
     private int id;
     private String nama;

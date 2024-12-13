@@ -1,3 +1,5 @@
+package com.pos;
+
 public class ProdukEceran extends Produk {
     private String satuan;
     private int stok;

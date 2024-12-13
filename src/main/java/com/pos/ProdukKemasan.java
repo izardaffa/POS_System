@@ -1,3 +1,5 @@
+package com.pos;
+
 public class ProdukKemasan extends Produk {
     private int jumlahKemasan;
     private String merk;
