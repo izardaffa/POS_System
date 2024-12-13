@@ -1,13 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.pos;
 
-/**
- *
- * @author ThinkPad
- */
 public class LaporanPenjualan {
+    // Atribut
+    private int idLaporan;
+    private String tanggal;
+    private double totalPenjualan;
+
+    public LaporanPenjualan(int idLaporan, String tanggal, double totalPenjualan) {
+        this.idLaporan = idLaporan;
+        this.tanggal = tanggal;
+        this.totalPenjualan = totalPenjualan;
+    }
+
     
 }
