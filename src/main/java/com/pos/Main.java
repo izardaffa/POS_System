@@ -10,7 +10,7 @@ public class Main {
 
         // Tambahkan produk contoh
         daftarProduk.add(new ProdukEceran(1, "Sabun", 5000, "Pcs", 100));
-        daftarProduk.add(new ProdukKemasan(2, "Minyak Goreng", 20000, 2, "Bimoli"));
+        daftarProduk.add(new ProdukKemasan(2, "Minyak Goreng", 20000, 2, "Bimoli", 100));
 
         List<Produk> keranjangBelanja = new ArrayList<>();
         boolean belanjaLagi = true;
