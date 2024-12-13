@@ -13,5 +13,7 @@ public class LaporanPenjualan {
         this.totalPenjualan = totalPenjualan;
     }
 
-    
+    public void cetakLaporan() {
+        System.out.println("Laporan Penjualan");
+    }
 }
