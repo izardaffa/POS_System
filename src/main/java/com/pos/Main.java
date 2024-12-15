@@ -1,6 +1,5 @@
 package com.pos;
 
-import java.util.Scanner;
 import java.util.*;
 
 public class Main {
@@ -70,13 +69,16 @@ public class Main {
             return;   
         } 
         
+        // Deklarasi pembayaran 
+        Pembayaran pembayaran = null;
+
         System.out.println("\nPilih metode pembayaran:");
         System.out.println("1. Cash");
         System.out.println("2. QRIS");
         System.out.print("Pilihan: ");
         int pilihan = scanner.nextInt();
 
-        Pembayaran pembayaran;
+        // Pembayaran pembayaran;
         switch (pilihan) {
             case 1:
                 System.out.println("\n=== Pembayaran Cash ===");
@@ -90,6 +92,28 @@ public class Main {
                 break;
             default:
                 System.out.println("Pilihan tidak valid.");
+        }
+
+        // Laporan Penjualan (CUMAN ADMIN DOANG)ADMIN PRIVILLEGE
+        LaporanPenjualan laporan = new LaporanPenjualan(69, "2024-12-15", 0, pembayaran);
+        laporan.updateTotalPenjualan(totalPembayaran);
+
+        if (currentUser instanceof Admin) {
+            System.out.println("\n=== Admin Menu ===");
+            System.out.println("1. Laporan Penjualan");
+            System.out.println("2. Keluar");
+            System.out.print("Pilihan: ");
+            int menuAdmin = scanner.nextInt();
+
+            if (menuAdmin == 1) {
+                laporan.cetakLaporan();
+            } else if (menuAdmin == 2) {
+                System.out.println("Terima kasih telah menggunakan sistem. Keluar...");
+            } else {
+                System.out.println("Pilihan tidak valid.");
+            }
+        } else {
+            System.out.println("Hanya admin yang bisa melihat laporan.");
         }
         
     }

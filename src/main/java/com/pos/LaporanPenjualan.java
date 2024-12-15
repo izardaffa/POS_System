@@ -15,11 +15,27 @@ public class LaporanPenjualan {
         this.pembayaran = pembayaran;
     }
 
+    public void updateTotalPenjualan(double amount) {
+        this.totalPenjualan += amount;  
+    }
+
     public void cetakLaporan() {
         System.out.println("ID Laporan: " + idLaporan);
         System.out.println("Tanggal: " + tanggal);
         System.out.println("Total Penjualan: " + totalPenjualan);
-        System.out.println("Detail Pembayaran: ");
-        pembayaran.bayar();
+        // System.out.println("Detail Pembayaran: ");
+        // pembayaran.bayar();
+    }
+
+    public double getTotalPenjualan() {
+        return totalPenjualan;
+    }
+
+    public int getIdLaporan() {
+        return idLaporan;
+    }
+
+    public String getTanggal() {
+        return tanggal;
     }
 }
