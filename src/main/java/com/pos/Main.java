@@ -44,15 +44,24 @@ public class Main {
         List<User> userList = new ArrayList<>();  
         userList.add(new Admin("admin", "admin123", "SuperAdmin"));  
         userList.add(new Pegawai("pegawai", "orangrajin", "Kasir"));  
-
+        
+        User currentUser = null;
+        boolean loginSuccess = false;
+        
+        while(!loginSuccess){
         //Login
         System.out.println("=== Login ===");  
-        System.out.print("Masukkan username: ");  
-        String username = scanner.next();  
+        System.out.print("Masukkan username (atau ketik 'exit' untuk keluar): ");  
+        String username = scanner.next();
+        
+        if (username.equalsIgnoreCase("exit")) {
+                System.out.println("Keluar dari sistem. Terima kasih!");
+                return;
+            }
+        
         System.out.print("Masukkan password: ");  
         String password = scanner.next();  
-
-        User currentUser = null;  
+  
         for (User user : userList) {  
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {  
                 currentUser = user;  
@@ -63,11 +72,12 @@ public class Main {
         if (currentUser != null) {  
             System.out.println("Login berhasil! Selamat datang, " + currentUser.getUsername() + ".");
             System.out.println("");
-            currentUser.displayInfo();   
+            currentUser.displayInfo();
+            loginSuccess = true;
         } else {  
-            System.out.println("Login gagal! Username atau password salah.");  
-            return;   
-        } 
+            System.out.println("Login gagal! Username atau password salah.");     
+        }
+       }
         
         // Deklarasi pembayaran 
         Pembayaran pembayaran = null;
