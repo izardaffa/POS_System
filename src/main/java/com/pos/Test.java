@@ -1,5 +1,7 @@
 package com.pos;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 // import java.util.Scanner;
@@ -102,6 +104,21 @@ public class Test {
                             Pembayaran pembayaran = null;
                             int pilihan = 0;
 
+                            LocalDateTime now = LocalDateTime.now();
+
+                            // Format datetime SQL: yyyy-MM-dd HH:mm:ss
+                            DateTimeFormatter sqlFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                            String sqlFormattedDate = now.format(sqlFormatter);
+
+                            // Format datetime yyyymmddhhmmss
+                            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+                            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmmss");
+
+                            int datePart = Integer.parseInt(now.format(dateFormatter));
+                            int timePart = Integer.parseInt(now.format(timeFormatter));
+
+                            int uniqueTransactionId = datePart + timePart;
+
                             System.out.println("\nPilih metode pembayaran:");
                             System.out.println("1. Cash");
                             System.out.println("2. QRIS");
@@ -114,12 +131,24 @@ public class Test {
                                 switch (pilihan) {
                                     case 1:
                                         System.out.println("\n=== Pembayaran Cash ===");
-                                        pembayaran = new PembayaranCash(1, 20241213, totalPembayaran);
+                                        pembayaran = new PembayaranCash(1, datePart, totalPembayaran);
                                         pembayaran.bayar();
                                         break;
                                     case 2:
                                         System.out.println("\n=== Pembayaran QRIS ===");
-                                        pembayaran = new PembayaranQris(2, 20241213, totalPembayaran, "Bank BNI");
+
+                                        String namaBank;
+                                        
+                                        do {
+                                            System.out.print("Masukkan nama bank: ");
+                                            namaBank = Util.stringInput();
+
+                                            if (namaBank.isEmpty()) {
+                                                System.out.println("Nama bank tidak boleh kosong.");
+                                            }
+                                        } while (namaBank.isEmpty());
+
+                                        pembayaran = new PembayaranQris(2, datePart, totalPembayaran, namaBank);
                                         pembayaran.bayar();
                                         break;
                                     default:
@@ -157,7 +186,7 @@ public class Test {
                                 }
                             } while (isMember);
 
-                            laporanPenjualan.add(new LaporanPenjualan(69, "2024-12-15", totalPembayaran, pembayaran));
+                            laporanPenjualan.add(new LaporanPenjualan(uniqueTransactionId, sqlFormattedDate, totalPembayaran, pembayaran));
                             System.out.println("Transaksi berhasil!");
                             Util.lanjutkan();
                             break;
@@ -448,12 +477,37 @@ public class Test {
                             displayMenu("pengguna");
                             System.out.print("Pilih menu: ");
                             String menuPengguna = Util.stringInput();
+
+                            switch (menuPengguna) {
+                                case "1":
+                                    System.out.println("Tambah Pengguna");
+                                    Util.lanjutkan();
+                                    break;
+                                case "2":
+                                    System.out.println("Edit Pengguna");
+                                    Util.lanjutkan();
+                                    break;
+                                case "3":
+                                    System.out.println("Hapus Pengguna");
+                                    Util.lanjutkan();
+                                    break;
+                                case "0":
+                                    break;
+                                default:
+                                    System.out.println("Pilihan tidak valid.");
+                                    Util.lanjutkan();
+                                    break;
+                            }
+
+                            Util.lanjutkan();
                             break;
                         case "5":
                             System.out.println("\nLaporan Penjualan");
                             for (LaporanPenjualan laporan : laporanPenjualan) {
                                 laporan.cetakLaporan();
                             }
+                            System.out.println();
+
                             Util.lanjutkan();
                             break;
                         case "0":
