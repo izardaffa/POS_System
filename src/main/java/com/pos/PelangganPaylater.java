@@ -26,6 +26,6 @@ public class PelangganPaylater extends Pelanggan {
     }
 
     public String toString() {
-        return super.toString() + " | Hutang | Rp. " + nominal;
+        return super.toString() + " | Rp. " + nominal;
     }
 }

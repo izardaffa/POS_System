@@ -31,6 +31,6 @@ public class PelangganMember extends Pelanggan {
     }
 
     public String toString() {
-        return super.toString() + " | Member | " + point;
+        return super.toString() + " | " + point;
     }
 }
