@@ -9,6 +9,23 @@ public class ProdukKemasan extends Produk {
         this.merk = merk;
         this.stok = stok;
     }
+
+    public String getMerk(){
+        return merk;
+    }
+
+    public int getStok(){
+        return stok;
+    }
+
+    public void setMerk(String merk){
+        this.merk = merk;
+    }
+
+    public void setStok(int stok){
+        this.stok = stok;
+    }
+
     @Override
     public String toString(){
         return super.toString() + ", ProdukKemasan{" + "Stok: " + stok + ", Merk: " + merk + '}'; 

@@ -26,6 +26,7 @@ public class Test {
         boolean loginSuccess = false;
 
         int memberIdCounter = memberList.size() + 1;
+        int produkIdCounter = daftarProduk.size() + 1;
 
         while (true) {
             try {
@@ -264,17 +265,177 @@ public class Test {
                             }
                             break;
                         case "3":
+                            String menuProduk;
+
                             System.out.println("\n=== Daftar Produk ===\n");
 
-                            System.out.println("No | Nama | No HP | Point");
-                            for (PelangganMember member : memberList) {
-                                System.out.println(member.toString());
+                            for (Produk produk : daftarProduk) {
+                                System.out.println(produk);
                             }
                             System.out.println();
 
                             displayMenu("produk");
                             System.out.print("Pilih menu: ");
-                            String menuProduk = Util.stringInput();
+                            menuProduk = Util.stringInput();
+
+                            switch (menuProduk) {
+                                case "1":
+                                    int jenisProduk;
+
+                                    String namaProduk;
+                                    double hargaProduk;
+                                    String satuanProduk;
+                                    String merekProduk;
+                                    int stokProduk;
+
+                                    System.out.println("Tambah Produk");
+
+                                    System.out.println("Pilih jenis produk:");
+                                    System.out.println("1. Eceran");
+                                    System.out.println("2. Kemasan");
+                                    System.out.println("0. Batal");
+                                    System.out.print("Pilihan: ");
+                                    
+                                    jenisProduk = Util.intInput();
+
+                                    switch (jenisProduk) {
+                                        case 1:
+                                            System.out.println("Tambah Produk Eceran");
+
+                                            System.out.print("Masukkan nama produk: ");
+                                            namaProduk = Util.stringInput();
+                                            System.out.print("Masukkan harga produk: ");
+                                            hargaProduk = Util.intInput();
+                                            System.out.print("Masukkan satuan produk: ");
+                                            satuanProduk = Util.stringInput();
+                                            System.out.print("Masukkan stok produk (" +satuanProduk+ "): ");
+                                            stokProduk = Util.intInput();
+
+                                            daftarProduk.add(new ProdukEceran(produkIdCounter, namaProduk, hargaProduk, satuanProduk, stokProduk));
+                                            produkIdCounter++;
+                                            System.out.println("Produk berhasil ditambahkan!");
+
+                                            Util.lanjutkan();
+                                            break;
+                                        case 2:
+                                            System.out.println("Tambah Produk Kemasan");
+
+                                            System.out.print("Masukkan nama produk: ");
+                                            namaProduk = Util.stringInput();
+                                            System.out.print("Masukkan harga produk: ");
+                                            hargaProduk = Util.intInput();
+                                            System.out.print("Masukkan merk produk: ");
+                                            merekProduk = Util.stringInput();
+                                            System.out.print("Masukkan stok produk (pcs): ");
+                                            stokProduk = Util.intInput();
+
+                                            daftarProduk.add(new ProdukKemasan(produkIdCounter, namaProduk, hargaProduk, merekProduk, stokProduk));
+                                            produkIdCounter++;
+                                            System.out.println("Produk berhasil ditambahkan!");
+
+                                            Util.lanjutkan();
+                                            break;
+                                        case 0:
+                                            break;
+                                        default:
+                                            System.out.println("Pilihan tidak valid.");
+                                            Util.lanjutkan();
+                                            break;
+                                    }
+
+                                    Util.lanjutkan();
+                                    break;
+                                case "2":
+                                    int idProduk;
+
+                                    System.out.println("Edit Produk");
+
+                                    System.out.print("Masukkan ID produk yang ingin diubah: ");
+                                    idProduk = Util.intInput();
+
+                                    Produk produkDiedit = daftarProduk.stream().filter(p -> p.getId() == idProduk).findFirst().orElse(null);
+                                    String namaBaru;
+                                    double hargaBaru;
+                                    String satuanBaru = "";
+                                    String merekBaru = "";
+                                    int stokBaru;
+
+                                    if (produkDiedit != null) {
+                                        System.out.print("Masukkan nama produk: ");
+                                        namaBaru = Util.stringInput();
+                                        System.out.print("Masukkan harga produk (masukkan 0 jika tidak diubah): ");
+                                        hargaBaru = Util.intInput();
+                                        
+                                        if (produkDiedit.getClass().getName().equals("com.pos.ProdukEceran")) {
+                                            System.out.print("Masukkan satuan produk: ");
+                                            satuanBaru = Util.stringInput();
+                                        } else if (produkDiedit.getClass().getName().equals("com.pos.ProdukKemasan")) {
+                                            System.out.print("Masukkan merk produk: ");
+                                            merekBaru = Util.stringInput();
+                                        }
+
+                                        System.out.print("Masukkan stok produk (masukkan 0 jika tidak diubah): ");
+                                        stokBaru = Util.intInput();
+
+                                        if (!namaBaru.isEmpty()) {
+                                            produkDiedit.setNama(namaBaru);
+                                        }
+
+                                        if (hargaBaru != 0) {
+                                            produkDiedit.setHarga(hargaBaru);
+                                        }
+
+                                        if (produkDiedit.getClass().getName().equals("com.pos.ProdukEceran")) {
+                                            if (!satuanBaru.isEmpty()) {
+                                                ((ProdukEceran) produkDiedit).setSatuan(satuanBaru);
+                                            }
+    
+                                            if (stokBaru != 0) {
+                                                ((ProdukKemasan) produkDiedit).setStok(stokBaru);
+                                            }
+                                        } else if (produkDiedit.getClass().getName().equals("com.pos.ProdukKemasan")) {
+                                            if (!merekBaru.isEmpty()) {
+                                                ((ProdukKemasan) produkDiedit).setMerk(merekBaru);
+                                            }
+    
+                                            if (stokBaru != 0) {
+                                                ((ProdukKemasan) produkDiedit).setStok(stokBaru);
+                                            }
+                                        }
+
+                                        System.out.println("Produk berhasil diubah!");
+                                    } else {
+                                        System.out.println("Produk tidak ditemukan.");
+                                    }
+
+                                    Util.lanjutkan();
+                                    break;
+                                case "3":
+                                    System.out.println("Hapus Produk");
+
+                                    System.out.print("Masukkan ID produk yang ingin dihapus: ");
+                                    int idProdukHapus = Util.intInput();
+
+                                    Produk produkDihapus = daftarProduk.stream().filter(p -> p.getId() == idProdukHapus).findFirst().orElse(null);
+
+                                    if (produkDihapus == null) {
+                                        System.out.println("Produk tidak ditemukan.");
+                                        Util.lanjutkan();
+                                        break;
+                                    }
+
+                                    daftarProduk.remove(produkDihapus);
+                                    System.out.println("Produk berhasil dihapus!");
+                                    Util.lanjutkan();
+                                    break;
+                                case "0":
+                                    break;
+                                default:
+                                    System.out.println("Pilihan tidak valid.");
+                                    Util.lanjutkan();
+                                    break;
+                            }
+
                             break;
                         case "4":
                             System.out.println("\n=== Daftar Pengguna ===\n");
