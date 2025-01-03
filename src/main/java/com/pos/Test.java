@@ -29,6 +29,7 @@ public class Test {
 
         int memberIdCounter = memberList.size() + 1;
         int produkIdCounter = daftarProduk.size() + 1;
+        int userIdCounter = userList.size() + 1;
 
         while (true) {
             try {
@@ -469,8 +470,10 @@ public class Test {
                         case "4":
                             System.out.println("\n=== Daftar Pengguna ===\n");
 
-                            for (PelangganMember member : memberList) {
-                                System.out.println(member.toString());
+                            System.out.println("Username | Password | Role");
+                            for (User user : userList) {
+                                String role = user instanceof Admin ? "SuperAdmin" : "Kasir";
+                                System.out.println(user.getUsername() + " | " + user.getPassword() + " | " + role);
                             }
                             System.out.println();
 
@@ -480,7 +483,59 @@ public class Test {
 
                             switch (menuPengguna) {
                                 case "1":
+                                    int tipePengguna;
+                                    String username;
+                                    String password;
+                                    String adminLevel;
+                                    String departement;
+
                                     System.out.println("Tambah Pengguna");
+
+                                    System.out.println("Pilih tipe pengguna:");
+                                    System.out.println("1. Admin");
+                                    System.out.println("2. Pegawai");
+                                    System.out.println("0. Batal");
+                                    System.out.print("Pilihan: ");
+                                    
+                                    tipePengguna = Util.intInput();
+
+                                    switch (tipePengguna) {
+                                        case 1:
+                                            System.out.print("Masukkan username: ");
+                                            username = Util.stringInput();
+                                            System.out.print("Masukkan password: ");
+                                            password = Util.stringInput();
+                                            System.out.print("Masukkan level admin: ");
+                                            adminLevel = Util.stringInput();
+
+                                            userList.add(new Admin(username, password, adminLevel));
+                                            userIdCounter++;
+                                            System.out.println("User berhasil ditambahkan!");
+
+                                            Util.lanjutkan();
+                                            break;
+                                        case 2:
+                                            System.out.print("Masukkan username: ");
+                                            username = Util.stringInput();
+                                            System.out.print("Masukkan password: ");
+                                            password = Util.stringInput();
+                                            System.out.print("Masukkan departement: ");
+                                            departement = Util.stringInput();
+
+                                            userList.add(new Pegawai(username, password, departement));
+                                            userIdCounter++;
+                                            System.out.println("User berhasil ditambahkan!");
+
+                                            Util.lanjutkan();
+                                            break;
+                                        case 0:
+                                            break;
+                                        default:
+                                            System.out.println("Pilihan tidak valid.");
+                                            Util.lanjutkan();
+                                            break;
+                                    }
+
                                     Util.lanjutkan();
                                     break;
                                 case "2":
