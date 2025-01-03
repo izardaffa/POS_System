@@ -503,6 +503,12 @@ public class Test {
                                         case 1:
                                             System.out.print("Masukkan username: ");
                                             username = Util.stringInput();
+                                            
+                                            if(isUsernameTaken(username, userList)){
+                                                System.out.println("Username sudah digunakan, silakan masukkan username lain.");
+                                                break;
+                                            }
+                                            
                                             System.out.print("Masukkan password: ");
                                             password = Util.stringInput();
                                             System.out.print("Masukkan level admin: ");
@@ -517,6 +523,12 @@ public class Test {
                                         case 2:
                                             System.out.print("Masukkan username: ");
                                             username = Util.stringInput();
+                                            
+                                            if (isUsernameTaken(username, userList)) {  
+                                            System.out.println("Username sudah digunakan, silakan masukkan username lain.");  
+                                            break;  
+    } 
+                                            
                                             System.out.print("Masukkan password: ");
                                             password = Util.stringInput();
                                             System.out.print("Masukkan departement: ");
@@ -527,7 +539,8 @@ public class Test {
                                             System.out.println("User berhasil ditambahkan!");
 
                                             Util.lanjutkan();
-                                            break;
+                                            break;                     
+                                            
                                         case 0:
                                             break;
                                         default:
@@ -539,11 +552,24 @@ public class Test {
                                     Util.lanjutkan();
                                     break;
                                 case "2":
-                                    System.out.println("Edit Pengguna");
-                                    Util.lanjutkan();
-                                    break;
-                                case "3":
-                                    System.out.println("Hapus Pengguna");
+                                     System.out.println("Hapus Pengguna");
+
+                                    System.out.print("Masukkan username yang ingin dihapus: ");
+                                    String usernameHapus = Util.stringInput(); 
+
+                                    User usernameDiHapus = userList.stream()
+                                            .filter(p -> p.getUsername().equals(usernameHapus)) 
+                                            .findFirst()
+                                            .orElse(null);
+
+                                    if (usernameDiHapus == null) {
+                                        System.out.println("Pengguna tidak ditemukan.");
+                                        Util.lanjutkan();
+                                        break;
+                                    }
+
+                                    userList.remove(usernameDiHapus);
+                                    System.out.println("Pengguna berhasil dihapus!");
                                     Util.lanjutkan();
                                     break;
                                 case "0":
@@ -584,6 +610,15 @@ public class Test {
             }
         }
     }
+    
+   private static boolean isUsernameTaken(String username, List<User> userList) {  
+    for (User user : userList) {  
+        if (user.getUsername().equals(username)) {  
+            return true;   
+        }  
+    }  
+    return false; 
+   }
 
     static void displayMenu(String x) {
         if (x == "main") {
@@ -630,7 +665,6 @@ public class Test {
         } else if (x == "pengguna") {
             String menu[] = {
                 "Tambah Pengguna",
-                "Edit Pengguna",
                 "Hapus Pengguna",
                 "Kembali"
             };

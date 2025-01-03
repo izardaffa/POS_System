@@ -18,7 +18,7 @@ public class Util {
     static void lanjutkan() {
         System.out.println("Tekan enter untuk melanjutkan...");
         try {
-            System.out.println(System.in.read());
+            System.in.read();
         } catch (Exception e) {
         }
     }
