@@ -107,6 +107,7 @@ public class Main {
         // Laporan Penjualan (CUMAN ADMIN DOANG)ADMIN PRIVILLEGE
         LaporanPenjualan laporan = new LaporanPenjualan(69, "2024-12-15", 0, pembayaran);
         laporan.updateTotalPenjualan(totalPembayaran);
+        LaporanBulanan laporanBulanan = new LaporanBulanan(97, "2024-11", 500000, pembayaran);
 
         if (currentUser instanceof Admin) {
             System.out.println("\n=== Admin Menu ===");
@@ -116,7 +117,13 @@ public class Main {
             int menuAdmin = scanner.nextInt();
 
             if (menuAdmin == 1) {
+                System.out.println("Laporan Harian");
                 laporan.cetakLaporan();
+
+                System.out.println();
+
+                System.out.println("Laporan Bulanan");
+                laporanBulanan.cetakLaporan();
             } else if (menuAdmin == 2) {
                 System.out.println("Terima kasih telah menggunakan sistem. Keluar...");
             } else {
