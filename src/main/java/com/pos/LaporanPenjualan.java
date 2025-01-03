@@ -23,8 +23,6 @@ public class LaporanPenjualan {
         System.out.println("ID Laporan: " + idLaporan);
         System.out.println("Tanggal: " + tanggal);
         System.out.println("Total Penjualan: Rp" + totalPenjualan);
-        // System.out.println("Detail Pembayaran: ");
-        // pembayaran.bayar();
     }
 
     public double getTotalPenjualan() {
